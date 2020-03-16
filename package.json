@@ -2,7 +2,7 @@
   "name": "korerorero-orchestration",
   "description": "The orchestration service",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "node dist/index.js",
     "build": "webpack",
