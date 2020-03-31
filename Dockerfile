@@ -1,8 +1,8 @@
 FROM node:12
 
-ENV PORT=3000
+ENV PORT=3001
 ENV IS_DEV=false
-EXPOSE 3000
+EXPOSE 3001
 
 WORKDIR /usr/src/app
 COPY package*.json ./
