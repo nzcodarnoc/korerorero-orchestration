@@ -2,8 +2,9 @@ import * as dotenv from "dotenv";
 import express from "express";
 import helmet from "helmet";
 import { MOUTH_SHAPES } from "./utils";
-import speechUrl from "./speech-url";
 import { createProxyMiddleware } from "http-proxy-middleware";
+import mouthShapesController from "./controllers/mouth-shapes-controller"
+import bodyParser from "body-parser";
 
 dotenv.config();
 
@@ -15,21 +16,19 @@ app.use(helmet());
 app.use(helmet.xssFilter());
 app.disable("x-powered-by");
 app.use(express.json());
-app.get("/", function (_req, res) {
+app.use(bodyParser.json())
+
+// ANCHOR /
+app.get("/", (_req, res) => {
   res.send("OK. Orchestration service");
 });
 
-app.use(
-  createProxyMiddleware("/request", {
-    target: MOUTH_SHAPES,
-    pathRewrite: {
-      "^/request": "/process?speech_url=" + speechUrl("Hello world"),
-    },
-  })
-);
+// ANCHOR /request
+app.post('/request', mouthShapesController);
 
+// ANCHOR /audio
 app.use(
-  createProxyMiddleware("/shapes", {
+  createProxyMiddleware("/audio", {
     target: MOUTH_SHAPES,
   })
 );
