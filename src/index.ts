@@ -16,7 +16,7 @@ app.use(helmet.xssFilter());
 app.disable("x-powered-by");
 app.use(express.json());
 app.get("/", function (_req, res) {
-  res.send("OK");
+  res.send("OK. Orchestration service");
 });
 
 app.use(
