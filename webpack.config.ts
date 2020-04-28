@@ -9,7 +9,7 @@ module.exports = {
   entry: ["./src/index.ts"],
   output: {
     path: path.resolve('./dist'),
-    filename: "server.js"
+    filename: "index.js"
   },
   watch: process.env.IS_DEV === 'true',
   target: "node",
