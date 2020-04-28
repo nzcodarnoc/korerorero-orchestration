@@ -26,6 +26,8 @@
     "@types/node": "^13.13.0",
     "jest": "^25.3.0",
     "mockserver": "^3.1.1",
+    "nodemon": "^2.0.3",
+    "nodemon-webpack-plugin": "^4.3.1",
     "ts-loader": "^7.0.0",
     "typescript": "^3.8.3",
     "webpack": "^4.42.1",
