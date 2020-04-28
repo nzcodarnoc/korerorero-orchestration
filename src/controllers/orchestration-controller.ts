@@ -11,7 +11,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
   }
   const message = String(req.body.message);
   const chatbotResponse: any = await chatbotController.message(sessionId, message);
-  const messageFromChatbot = chatbotResponse.result.output.generic.text;
+  const messageFromChatbot = chatbotResponse.result.output.generic[0].text;
   const ttsCall = await ttsController(messageFromChatbot);
   const mouthShapes = await mouthShapesController(ttsCall);
   res.json(mouthShapes);
