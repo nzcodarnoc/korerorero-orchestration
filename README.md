@@ -6,5 +6,6 @@ This service orchestrates:
 
 - [text to speech (tts)](https://github.com/ServiceInnovationLab/korerorero-marytts)
 - [mouth shapes](https://github.com/ServiceInnovationLab/korerorero-mouth-shapes)
+- chatbot
 
-It knows how to call the services listed above to encapsulate knowledge of the APIs.
+Details of the API can be imported into [Postman](https://www.postman.com/)  from the file in `./postman/`
