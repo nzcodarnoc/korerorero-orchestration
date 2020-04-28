@@ -3,8 +3,7 @@ import express from "express";
 import helmet from "helmet";
 import { MOUTH_SHAPES } from "./utils";
 import { createProxyMiddleware } from "http-proxy-middleware";
-import mouthShapesController from "./controllers/mouth-shapes-controller";
-import chatbotController from "./controllers/watson-controller";
+import orchestrationController from "./controllers/orchestration-controller";
 import bodyParser from "body-parser";
 
 dotenv.config();
@@ -25,7 +24,7 @@ app.get("/", (_req, res) => {
 });
 
 // ANCHOR /request
-app.post("/request", mouthShapesController);
+app.post("/request", orchestrationController);
 
 // ANCHOR /audio
 app.use(
@@ -33,10 +32,6 @@ app.use(
     target: MOUTH_SHAPES,
   })
 );
-
-// ANCHOR /chatbot
-app.get("/chatbot/session", chatbotController.createSession);
-app.post("/chatbot/message", chatbotController.message);
 
 const server = app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);

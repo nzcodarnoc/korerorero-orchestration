@@ -27,41 +27,43 @@ const assistant = new AssistantV2({
     process.env.DISABLE_SSL_VERIFICATION === "true" ? true : false,
 });
 
-let sessionId: string;
 const assistantId = String(process.env.ASSISTANT_ID);
 
-const message = (req: Request, res: Response, _next: NextFunction) => {
-  var payload = {
-    assistantId,
-    sessionId,
-    input: {
-      message_type: "text",
-      text: "Testing",
-    },
-  };
-  assistant.message(payload, function (err: any, data: any) {
-    if (err) {
-      const status = err.code !== undefined && err.code > 0 ? err.code : 500;
-      return res.status(status).json(err);
-    }
-    return res.json(data);
+const message = async (sessionId: string, text: string) => {
+  return new Promise((resolve, reject) => {
+    var payload = {
+      assistantId,
+      sessionId,
+      input: {
+        message_type: "text",
+        text,
+      },
+    };
+    assistant.message(payload, function (err: any, data: any) {
+      if (err) {
+        const status = err.code !== undefined && err.code > 0 ? err.code : 500;
+        reject(err);
+      }
+      resolve(data);
+    });
   });
 };
 
-const createSession = (_req: Request, res: Response, _next: NextFunction) => {
-  assistant.createSession(
-    {
-      assistantId,
-    },
-    function (error: any, response: any) {
-      if (error) {
-        return res.send(error);
-      } else {
-        sessionId = response.result.session_id;
-        return res.send(response);
+const createSession = async (): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    assistant.createSession(
+      {
+        assistantId,
+      },
+      function (error: any, response: any) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(response.result.session_id);
+        }
       }
-    }
-  );
+    );
+  });
 };
 
 export default { createSession, message };
