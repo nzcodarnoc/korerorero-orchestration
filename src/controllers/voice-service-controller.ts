@@ -1,12 +1,11 @@
 import axios from "axios";
-import { MOUTH_SHAPES } from "../utils";
+import { VOICE_SERVICE } from "../utils";
 
-export default (ttsCall: string) => {
+export default (message: string) => {
   return new Promise((resolve, reject) => {
-    console.info(`ℹ️ Calling /process with { speech_url: "${ttsCall}"`);
     axios
-      .post(MOUTH_SHAPES + "/process", {
-        speech_url: ttsCall,
+      .post(VOICE_SERVICE + "/request-speech", {
+        message,
       })
       .then(function (response) {
         resolve(response.data);

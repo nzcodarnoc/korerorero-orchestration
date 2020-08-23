@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 import express from "express";
 import helmet from "helmet";
-import { MOUTH_SHAPES } from "./utils";
+import { VOICE_SERVICE } from "./utils";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import orchestrationController from "./controllers/orchestration-controller";
 import bodyParser from "body-parser";
@@ -29,7 +29,7 @@ app.post("/request", orchestrationController);
 // ANCHOR /audio
 app.use(
   createProxyMiddleware("/audio", {
-    target: MOUTH_SHAPES,
+    target: VOICE_SERVICE,
   })
 );
 

@@ -1,4 +1,4 @@
-FROM node:13
+FROM node:13-alpine
 
 ENV PORT=3001
 ENV IS_DEV=false
@@ -10,3 +10,5 @@ RUN npm install
 COPY . .
 RUN npm run build
 CMD [ "npm", "start" ]
+USER node
+
