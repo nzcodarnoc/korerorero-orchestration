@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2020-08-23
+### Changed
+- Refactored tts and mouth-shapes into voice-service
+
 ## [0.2.0] - 2020-05-05
 ### Added
 - Integration with IBM Watson
