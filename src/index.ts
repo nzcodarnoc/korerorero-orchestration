@@ -1,22 +1,36 @@
-import * as dotenv from "dotenv";
 import express from "express";
 import helmet from "helmet";
-import { VOICE_SERVICE } from "./utils";
+import session from "express-session";
+import FileStoreCtor from "session-file-store";
+import { VOICE_SERVICE, PORT, SESSION_SECRET } from "./env";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import orchestrationController from "./controllers/orchestration-controller";
 import bodyParser from "body-parser";
 
-dotenv.config();
-
-const PORT: number = parseInt(process.env.PORT as string, 10);
-
 const app = express();
+const FileStore = FileStoreCtor(session);
 
 app.use(helmet());
 app.use(helmet.xssFilter());
 app.disable("x-powered-by");
 app.use(express.json());
 app.use(bodyParser.json());
+const sessionSettings = {
+  store: new FileStore(),
+  secret: SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    secure: true,
+  },
+};
+if (app.get("env") === "development") {
+  sessionSettings.cookie.secure = false;
+} else if (app.get("env") === "production") {
+  app.set("trust proxy", 1);
+}
+
+app.use(session(sessionSettings));
 
 // ANCHOR /
 app.get("/", (_req, res) => {
