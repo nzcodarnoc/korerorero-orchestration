@@ -20,6 +20,7 @@ const sessionSettings = {
   secret: SESSION_SECRET,
   resave: true,
   saveUninitialized: true,
+  retries: 0,
   cookie: {
     secure: true,
   },
