@@ -1,5 +1,5 @@
 import axios from "axios";
-import { VOICE_SERVICE } from "../utils";
+import { VOICE_SERVICE } from "../env";
 
 export default (message: string) => {
   return new Promise((resolve, reject) => {

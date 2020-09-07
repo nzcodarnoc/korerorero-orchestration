@@ -1,12 +1,13 @@
 import * as dotenv from "dotenv";
-import envalid, { bool, port, url } from "envalid";
+import envalid, { port, url, str } from "envalid";
 dotenv.config();
 
 const env = envalid.cleanEnv(process.env, {
   PORT: port(),
-  IS_DEV: bool(),
   VOICE_SERVICE: url(),
+  SESSION_SECRET: str(),
 });
 
 export const PORT = parseInt(String(env.PORT), 10);
-export const VOICE_SERVICE = env.VOICE_SERVICE;
+export const VOICE_SERVICE = String(env.VOICE_SERVICE);
+export const SESSION_SECRET = String(env.SESSION_SECRET);
